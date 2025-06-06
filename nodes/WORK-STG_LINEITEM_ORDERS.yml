@@ -19,16 +19,30 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: eb480294-b183-4282-ae7c-6381484093fc
+          columnCounter: 2aea5c3c-c5bd-4147-8ba1-1167d6bc533e
           stepCounter: 2f9b89ba-ea44-4ea8-8d27-beb0f75a11e7
         config: {}
         dataType: NUMBER(38,0)
         description: ""
-        name: L_ORDERKEY
+        name: O_CUSTKEY
         nullable: false
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: a0de023c-5f27-43b8-a10c-a6e133ea3700
+              - columnCounter: 96437096-1713-4a49-8891-388e9415eefd
+                stepCounter: 32b2044c-b723-484d-9f93-87b16ff200f8
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 35609eb5-1bcb-4159-9a2b-a1e4e1301112
+          stepCounter: 2f9b89ba-ea44-4ea8-8d27-beb0f75a11e7
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: L_SUPPKEY
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7d4a8a8a-3f0a-4f37-a7ea-5b25b45cd260
                 stepCounter: 8953d18d-1231-4186-9e96-9963baee129e
             transform: ""
       - appliedColumnTests: {}
@@ -47,16 +61,16 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 35609eb5-1bcb-4159-9a2b-a1e4e1301112
+          columnCounter: eb480294-b183-4282-ae7c-6381484093fc
           stepCounter: 2f9b89ba-ea44-4ea8-8d27-beb0f75a11e7
         config: {}
         dataType: NUMBER(38,0)
         description: ""
-        name: L_SUPPKEY
+        name: L_ORDERKEY
         nullable: false
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: 7d4a8a8a-3f0a-4f37-a7ea-5b25b45cd260
+              - columnCounter: a0de023c-5f27-43b8-a10c-a6e133ea3700
                 stepCounter: 8953d18d-1231-4186-9e96-9963baee129e
             transform: ""
       - appliedColumnTests: {}
@@ -257,20 +271,6 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 2aea5c3c-c5bd-4147-8ba1-1167d6bc533e
-          stepCounter: 2f9b89ba-ea44-4ea8-8d27-beb0f75a11e7
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: O_CUSTKEY
-        nullable: false
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 96437096-1713-4a49-8891-388e9415eefd
-                stepCounter: 32b2044c-b723-484d-9f93-87b16ff200f8
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
           columnCounter: 6ed9cf81-3f30-4b1b-8942-8953eb333435
           stepCounter: 2f9b89ba-ea44-4ea8-8d27-beb0f75a11e7
         config: {}
@@ -318,13 +318,27 @@ operation:
         config: {}
         dataType: VARCHAR(15)
         description: ""
-        name: O_ORDERPRIORITY
+        name: O_ORDERPRIORITY_NUM
         nullable: false
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: d93b1e9e-d2ff-4e4f-bed6-9805eae71500
                 stepCounter: 32b2044c-b723-484d-9f93-87b16ff200f8
-            transform: ""
+            transform: SPLIT_PART("STG_ORDERS"."O_ORDERPRIORITY", '-', 1 )
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9af8f7ff-978e-4edd-b63e-0aa4b6a4a364
+          stepCounter: 2f9b89ba-ea44-4ea8-8d27-beb0f75a11e7
+        config: {}
+        dataType: VARCHAR(15)
+        description: ""
+        name: O_ORDERPRIORITY_DESC
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d93b1e9e-d2ff-4e4f-bed6-9805eae71500
+                stepCounter: 32b2044c-b723-484d-9f93-87b16ff200f8
+            transform: SPLIT_PART("STG_ORDERS"."O_ORDERPRIORITY", '-', 2 )
       - appliedColumnTests: {}
         columnReference:
           columnCounter: c5abea10-f682-4cdd-aab9-616f47f492b4
@@ -367,6 +381,26 @@ operation:
               - columnCounter: b5d5f3b7-d296-4c48-89e5-eb863a798b39
                 stepCounter: 32b2044c-b723-484d-9f93-87b16ff200f8
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 526570d8-db00-4204-91ca-921e8ac31a6a
+          stepCounter: 2f9b89ba-ea44-4ea8-8d27-beb0f75a11e7
+        config: {}
+        dataType: Number
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: DAYS TO SHIP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: DATEDIFF('DAY',"STG_ORDERS"."O_ORDERDATE","STG_LINEITEM"."L_SHIPDATE")
+        systemColumnType: None
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
