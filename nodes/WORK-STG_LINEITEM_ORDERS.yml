@@ -19,6 +19,34 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
+          columnCounter: 60ae0029-7c5d-46b0-8c76-a3d138168bd8
+          stepCounter: 2f9b89ba-ea44-4ea8-8d27-beb0f75a11e7
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PS_AVAILQTY
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: eb791f0e-f0e2-46b2-ab9a-58369e1278bb
+                stepCounter: ddb9bce8-587d-49d5-9961-2b125f498599
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 69a46ae3-417b-41cd-8b7f-489cd7c12828
+          stepCounter: 2f9b89ba-ea44-4ea8-8d27-beb0f75a11e7
+        config: {}
+        dataType: NUMBER(12,2)
+        description: ""
+        name: PS_SUPPLYCOST
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 3bc1d4d6-2a01-4c23-a310-63b030b55d9c
+                stepCounter: ddb9bce8-587d-49d5-9961-2b125f498599
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
           columnCounter: 2aea5c3c-c5bd-4147-8ba1-1167d6bc533e
           stepCounter: 2f9b89ba-ea44-4ea8-8d27-beb0f75a11e7
         config: {}
@@ -407,6 +435,7 @@ operation:
       - aliases:
           STG_LINEITEM: 8953d18d-1231-4186-9e96-9963baee129e
           STG_ORDERS: 32b2044c-b723-484d-9f93-87b16ff200f8
+          STG_PARTSUPP: ddb9bce8-587d-49d5-9961-2b125f498599
         customSQL:
           customSQL: ""
         dependencies:
@@ -414,11 +443,19 @@ operation:
             nodeName: STG_LINEITEM
           - locationName: WORK
             nodeName: STG_ORDERS
+          - locationName: WORK
+            nodeName: STG_PARTSUPP
         join:
           joinCondition: |-
-            FROM {{ ref('WORK', 'STG_LINEITEM') }} "STG_LINEITEM"
-            INNER JOIN {{ ref('WORK', 'STG_ORDERS') }} "STG_ORDERS"
-            ON "STG_LINEITEM"."L_ORDERKEY" = "STG_ORDERS"."O_ORDERKEY"
+            FROM {{ ref('WORK', 'STG_ORDERS') }} "STG_ORDERS"
+            
+            INNER JOIN {{ ref('WORK', 'STG_LINEITEM') }} "STG_LINEITEM"
+            
+            ON "STG_ORDERS"."O_ORDERKEY" = "STG_LINEITEM"."L_ORDERKEY"
+            
+            INNER JOIN {{ ref('WORK', 'STG_PARTSUPP') }} "STG_PARTSUPP"
+            
+            ON "STG_LINEITEM"."L_PARTKEY" = "STG_PARTSUPP"."PS_PARTKEY" AND "STG_LINEITEM"."L_SUPPKEY" = "STG_PARTSUPP"."PS_SUPPKEY"
         name: STG_LINEITEM_ORDERS
         noLinkRefs: []
   name: STG_LINEITEM_ORDERS
