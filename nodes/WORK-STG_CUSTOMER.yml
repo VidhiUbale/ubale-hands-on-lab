@@ -129,6 +129,27 @@ operation:
               - columnCounter: ee7cc471-6273-480e-aa36-8dc7700674ba
                 stepCounter: 76a52930-66c5-4062-8403-ffbbfe00cbf1
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: b5d62269-c931-4e64-b1c8-08c1162e4ce0
+          stepCounter: b7745605-5048-456f-a513-19c3672c7c82
+        config: {}
+        dataType: VARCHAR(25)
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: C_NAME_UPPER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e967b4e5-c285-438e-9397-e004de246d34
+                stepCounter: 76a52930-66c5-4062-8403-ffbbfe00cbf1
+            transform: |
+              UPPER(C_NAME)
+        systemColumnType: None
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
